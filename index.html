@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>heart</title>
+    <style>
+      body {
+        background-color: #222222;
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+</head>
+<body>
+<!--not works on r53 and later ??? -->
+<script type="text/javascript" src="three.min.js"></script>
+
+<!-- FONTS------>
+
+<script src="fonts/helvetiker_regular.typeface.js"></script>
+
+<script type="text/javascript">
+  var renderer, scene, camera, mesh,controls;
+
+  // for mouse rotation, from offical example
+  var targetRotation = 0;
+  var targetRotationOnMouseDown = 0;
+  var mouseX = 0;
+  var mouseXOnMouseDown = 0;
+  var windowHalfX = window.innerWidth / 2;
+  var windowHalfY = window.innerHeight / 2;
+
+  init();
+  animate();
+
+  function init() {
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(15,
+        window.innerWidth / window.innerHeight,
+        0.1, 10000);
+    camera.position.set(0, 0, 25);
+    scene.add(camera);
+
+    var light = new THREE.PointLight(0xff0000);
+    light.position.set(0, 0, 15);
+    scene.add(light);
+    // load the heart model
+    cy = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.02,0.02,0.8,10,1,true),
+          new THREE.MeshLambertMaterial({color: 0x005500})
+        );
+    cy.position.y=-0.4;
+    var loader = new THREE.JSONLoader();
+    loader.load("heart.js", function(geo) {
+        var material = new THREE.MeshFaceMaterial();
+        mesh = new THREE.Mesh(geo, material);
+        scene.add(mesh);
+        });
+    loader.load("rose.js", function(geo) {
+        var m = new THREE.MeshLambertMaterial({color: 0xff0000});
+        rose = new THREE.Mesh(geo, m);
+        scene.add(rose);
+        scene.add(cy);
+        });
+  // Some text ..
+  var textGeom = new THREE.TextGeometry( "Hello, World!",
+  {
+  size: 30, height: 4, curveSegments: 3,
+  font: "helvetiker", weight: "bold", style: "normal",
+  bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+  material: 0, extrudeMaterial: 1
+  });
+  // font: helvetiker, gentilis, droid sans, droid serif, optimer
+  // weight: normal, bold
+  var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+  var textMesh = new THREE.Mesh(textGeom, textMaterial );
+  textGeom.computeBoundingBox();
+  var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+  textMesh.position.set( -0.5 * textWidth, 50, 100 );
+  textMesh.rotation.x = -Math.PI / 4;
+  scene.add(textMesh); 
+
+  //
+  
+  scene.add(text);
+
+  console.log(scene.children[0]);
+
+  };
+
+function animate() {
+      if(scene.children[0].position.x <=800) scene.children[0].position.x+=0.1;
+      else scene.children[0].position.x-=0.1;
+      render()
+      
+      requestAnimationFrame(animate);    
+  
+   
+}
+    
+  
+function render() {
+    // remember to change this
+    if(mesh){
+      document.title='heart';
+    }else
+      document.title='loading...';
+      //document.body.html("Loading.. Please wait ...")
+    renderer.render( scene, camera );
+  }
+
+</script>
+</body>
+</html>
+
+
