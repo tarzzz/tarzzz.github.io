@@ -6,19 +6,19 @@ Canvas.prototype.add_axes = function(){
 	    
 	});
 	var x_axis = new THREE.Mesh(
-	   new THREE.CubeGeometry(100, 0.03, 0.03),
+	   new THREE.CubeGeometry(100, 0.05, 0.05),
 	   axesMaterial);
 	   
 	scene.add(x_axis);
 	
 	var y_axis = new THREE.Mesh(
-	   new THREE.CubeGeometry(0.03, 100, 0.03),
+	   new THREE.CubeGeometry(0.05, 100, 0.05),
 	   axesMaterial);
 	   
 	scene.add(y_axis);
 	
 	var z_axis = new THREE.Mesh(
-	   new THREE.CubeGeometry(0.03, 0.03, 10),
+	   new THREE.CubeGeometry(0.05, 0.05, 10),
 	   axesMaterial);
 	   
 	scene.add(z_axis);
