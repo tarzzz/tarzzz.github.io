@@ -45,6 +45,7 @@ Canvas.prototype.init = function(){
     renderer.render( scene, camera );
     $("#reset").click(Canvas.prototype.reset);
     $("#animate").click(Canvas.prototype.animate);
+    $("#animate").hide();
 };
 
 
@@ -57,11 +58,16 @@ Canvas.prototype.animate = function(){
   scene.children[7].rotation.y+=0.1
   */
   // rotate heart about rose..
+  if(scene.children[6] && scene.children[7]){
   scene.children[6].position.x=5*Math.cos(Canvas.prototype.revolutionAngle);
   scene.children[6].position.z=5*Math.sin(Canvas.prototype.revolutionAngle);
   scene.children[7].rotation.y+=0.1;
   scene.children[6].rotation.y-=0.01;
   Canvas.prototype.revolutionAngle+=0.01;
+  }
+  else{
+  $("#animate").hide();
+  }
   renderer.render( scene, camera );
  	Canvas.prototype.animationID=requestAnimationFrame(Canvas.prototype.animate);
 };

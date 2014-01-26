@@ -49,7 +49,10 @@
     </div>
   </div>
 <script type="text/javascript">
+ $( window ).load(function() {
   alert("Hi! This one is for you.. Click on the Animate button! :) \n \nP.S: Mouse Controls are CAD like: \n-click and drag to view in 3D \n-scroll to zoom in/out!");
+  $("#animate").show();
+  });
   var a = new Canvas();
   a.init();
   a.add_axes();
