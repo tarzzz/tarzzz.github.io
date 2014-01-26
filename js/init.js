@@ -29,7 +29,7 @@ Canvas.prototype.init = function(){
     $("#canvas").append(renderer.domElement);
     //document.body.appendChild(renderer.domElement);
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0xff0000, 250, 1400 );
+    scene.fog = new THREE.Fog( 0xff00ff, 1, 100 );
 
     camera = new THREE.PerspectiveCamera(15,
         window.innerWidth / window.innerHeight,
@@ -60,9 +60,10 @@ Canvas.prototype.animate = function(){
   scene.children[6].position.x=5*Math.cos(Canvas.prototype.revolutionAngle);
   scene.children[6].position.z=5*Math.sin(Canvas.prototype.revolutionAngle);
   scene.children[7].rotation.y+=0.1;
+  scene.children[6].rotation.y-=0.01;
   Canvas.prototype.revolutionAngle+=0.01;
   renderer.render( scene, camera );
-	requestAnimationFrame(Canvas.prototype.animate);
+ 	Canvas.prototype.animationID=requestAnimationFrame(Canvas.prototype.animate);
 };
 
 Canvas.prototype.reset = function(){ controls.reset(); }
@@ -74,3 +75,4 @@ Canvas.prototype.rotateAroundWorldAxis = function(object, axis, radians) {
     object.matrix = rotWorldMatrix;
     object.rotation.setEulerFromRotationMatrix(object.matrix);
 }
+
